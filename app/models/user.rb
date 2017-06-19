@@ -2,9 +2,7 @@ class User < ApplicationRecord
   attr_accessor :remember_token
   has_secure_password
   before_create :create_remember_digest
-  #create token with SecureRandom.urlsafe_base64 and .to_s
-  #encrypt token with Digest::SHA1.hexdigest
-  #save
+
 
 
 
@@ -27,6 +25,9 @@ class User < ApplicationRecord
     update_attribute(:remember_digest, User.digest(remember_token))
   end
 
+  def forget
+		update_attribute(:remember_digest, nil)
+  end
 
 
   private
@@ -34,7 +35,5 @@ class User < ApplicationRecord
     def create_remember_digest
       self.remember_token = User.new_token
       self.remember_digest = User.digest(remember_token)
-      #update_attribute(:remember_digest, self.remember_digest)
     end
-
 end
