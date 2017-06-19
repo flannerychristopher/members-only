@@ -5,4 +5,36 @@ class PostsController < ApplicationController
     @posts = Post.all
   end
 
+  def new
+    @post = Post.new
+  end
+
+  def create
+    @post = Post.new(post_params)
+    @post.user_id = current_user.id
+
+    if @post.save
+      redirect_to posts_path
+    else
+      render 'new'
+    end
+
+  end
+
+
+
+  private
+
+    def user_logged_in
+      unless logged_in?
+        flash[:danger] = "Sign in first"
+        redirect_to signin_url
+      end
+    end
+
+    def post_params
+      params.require(:post).permit(:title, :body, :user_id)
+    end
+
+
 end
