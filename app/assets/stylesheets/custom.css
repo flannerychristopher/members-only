@@ -1,0 +1,17 @@
+body {
+  font-family: Verdana, sans-serif;
+  background-color: #e7e7e7;
+}
+h1, h2, form, .centered-div {
+  text-align: center;
+}
+input {
+  width: 400px;
+}
+textarea {
+  height: 100px;
+  width: 400px;
+}
+p {
+  margin: 20px 15%;
+}

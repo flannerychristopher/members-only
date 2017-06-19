@@ -1,4 +1,17 @@
-<h1>Posts</h1>
+
+<div class="centered-div">
+  <% if logged_in? %>
+    <%= link_to 'New Post', new_post_path %> -
+    <%= link_to 'Log Out', logout_url, method: 'delete' %>
+    <p>signed in as: <%= current_user.name %></p>
+  <% else %>
+    <p>
+      <%= link_to 'Sign In', login_path %> to post or view the authors
+    </p>
+  <% end %>
+</div>
+
+<hr>
 
 <% @posts.each do |post| %>
     <h2>
@@ -8,23 +21,15 @@
       <%= post.body %>
     </p>
 
-<% if post.user_id %>
-    <p>posted by:
-      <% if logged_in?%>
-        <td><%= User.find(post.user_id).name %></td>
-      <% else %>
-        <td>Unknown</td>
-      <% end %>
-    </p>
-<% end %>
-<% end %>
+    <% if post.user_id %>
+        <p>posted by:
+          <% if logged_in?%>
+            <strong><%= User.find(post.user_id).name %></strong>
+          <% else %>
+            <td>Anonymous</td>
+          <% end %>
+        </p>
+    <% end %>
 
-<% if logged_in? %>
-
-  <%= link_to 'New Post', new_post_path %>
-  <%= link_to 'Log Out', logout_url, method: 'delete' %>
-  <p>signed in as: <%= current_user.name %></p>
-<% else %>
-  <%= link_to 'Sign In', login_path %>
-  <%= link_to 'Home', root_path %>
+    <hr>
 <% end %>

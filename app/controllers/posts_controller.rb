@@ -21,20 +21,17 @@ class PostsController < ApplicationController
 
   end
 
-
-
   private
 
     def user_logged_in
       unless logged_in?
         flash[:danger] = "Sign in first"
-        redirect_to signin_url
+        redirect_to login_path
       end
     end
 
     def post_params
       params.require(:post).permit(:title, :body, :user_id)
     end
-
 
 end
