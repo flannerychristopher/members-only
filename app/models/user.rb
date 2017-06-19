@@ -8,8 +8,8 @@ class User < ApplicationRecord
     SecureRandom.urlsafe_base64
   end
 
+  # make into digest
   def User.digest(string)
-    #Digest::SHA1.hexdigest 'string'
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
                                                   BCrypt::Engine.cost
     BCrypt::Password.create(string, cost: cost)
@@ -31,5 +31,5 @@ class User < ApplicationRecord
       self.remember_token = User.new_token
       self.remember_digest = User.digest(remember_token)
     end
-    
+
 end
